@@ -31,7 +31,8 @@ public:
     class iterator;
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
-        root = nullptr;
+        root = new node;
+        root->data = 0;
     }
     /**
      * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
@@ -61,8 +62,10 @@ public:
         }
     }
     /** Hozzáférés a fapontban tárolt adathoz. */
-    const T& data() const;
-    T& data();
+    const T& data() const {
+        return root->data;
+    }
+
     /** A fapont szülõje. */
     my_tree<T>* parent() const;
     /** A fapont bal gyereke. */
@@ -95,5 +98,7 @@ int main() {
     my_tree<int> tree = my_tree<int>();
     my_tree<int> tree2 = my_tree<int>(a);
     cout << "after" << endl;
+    cout << "tree has: "<< tree.data() << endl;
+    cout << "tree2 has: " << tree2.data() << endl;
     return 0;
 }
