@@ -1,3 +1,6 @@
+#include <iostream>
+
+using namespace std;
 // === MEGVALÓSÍTANDÓ ===
 
 /**
@@ -27,19 +30,36 @@ public:
      */
     class iterator;
     /** A sablonpéldány rendelkezik default konstruktorral. */
-    my_tree();
+    my_tree() {
+        root = nullptr;
+    }
     /**
      * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
      * fapontban tárolt adatot.
      */
-    my_tree(const T &data);
+    my_tree(const T &data) {
     /**
      * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
      * fapontban tárolt adatot, és a bal és jobb gyerekét.
      */
+        root = new node;
+        root->data = data;
+        root->left = nullptr;
+        root->right = nullptr;
+    }
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right);
     /** A destruktor felszabadítja a teljes részfát. */
-    ~my_tree();
+    ~my_tree() {
+        if (root != nullptr) {
+            if (root->left != nullptr) {
+                delete root->left;
+            }
+            if (root->right != nullptr) {
+                delete root->right;
+            }
+            delete root;
+        }
+    }
     /** Hozzáférés a fapontban tárolt adathoz. */
     const T& data() const;
     T& data();
@@ -70,6 +90,10 @@ public:
 int main() {
     //my_tree<int> *tree = new my_tree<int>(8, new my_tree<int>(7), new my_tree<int>(9));
     //cout << *tree->begin();
-
+    cout << "before" << endl;
+    int a = 2;
+    my_tree<int> tree = my_tree<int>();
+    my_tree<int> tree2 = my_tree<int>(a);
+    cout << "after" << endl;
     return 0;
 }
