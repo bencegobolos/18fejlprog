@@ -16,13 +16,9 @@ using namespace std;
 template<class T>
 class my_tree {
 private:
-    struct node {
-        T data;
-        node* left;
-        node* right;
-    };
-
-    node* root;
+    T d;
+    my_tree<T>* left;
+    my_tree<T>* right;
 
 public:
     /**
@@ -31,8 +27,9 @@ public:
     class iterator;
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
-        root = new node;
-        root->data = 0;
+        this->d = 0;
+        this->left = nullptr;
+        this->right = nullptr;
     }
     /**
      * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
@@ -43,37 +40,37 @@ public:
      * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
      * fapontban tárolt adatot, és a bal és jobb gyerekét.
      */
-        root = new node;
-        root->data = data;
-        root->left = nullptr;
-        root->right = nullptr;
+        this->d = data;
+        this->left = nullptr;
+        this->right = nullptr;
     }
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right);
     /** A destruktor felszabadítja a teljes részfát. */
     ~my_tree() {
-        if (root != nullptr) {
-            if (root->left != nullptr) {
-                delete root->left;
-            }
-            if (root->right != nullptr) {
-                delete root->right;
-            }
-            delete root;
+        if (this->left != nullptr) {
+            delete this->left;
+        }
+        if (this->right != nullptr) {
+            delete this->right;
         }
     }
     /** Hozzáférés a fapontban tárolt adathoz. */
     const T& data() const {
-        return root->data;
+        return this->d;
     }
 
     /** A fapont szülõje. */
     my_tree<T>* parent() const;
     /** A fapont bal gyereke. */
-    my_tree<T>* leftChild() const;
+    my_tree<T>* leftChild() const {
+        return this->left;
+    }
     /** A fapont jobb gyereke. */
     my_tree<T>* rightChild() const;
     /** Beállítja a fapont bal gyerekét. */
-    void setLeftChild(my_tree<T> *left);
+    void setLeftChild(my_tree<T> *left) {
+        this->left = left;
+    }
     /** Beállítja a fapont jobb gyerekét. */
     void setRightChild(my_tree<T> *right);
     /** Iterátor típus, amely inorder bejárást biztosít a fában. */
@@ -94,11 +91,15 @@ int main() {
     //my_tree<int> *tree = new my_tree<int>(8, new my_tree<int>(7), new my_tree<int>(9));
     //cout << *tree->begin();
     cout << "before" << endl;
-    int a = 2;
     my_tree<int> tree = my_tree<int>();
-    my_tree<int> tree2 = my_tree<int>(a);
+    my_tree<int> tree2 = my_tree<int>(2);
     cout << "after" << endl;
     cout << "tree has: "<< tree.data() << endl;
     cout << "tree2 has: " << tree2.data() << endl;
+
+    tree2.setLeftChild(&tree);
+    my_tree<int> *val = tree2.leftChild();
+    cout << "tree2 left child (tree): " << val->data() << endl;
+
     return 0;
 }
