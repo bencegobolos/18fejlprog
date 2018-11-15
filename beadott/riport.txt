@@ -1,4 +1,4 @@
-1. Probalkozas:
+2. Probalkozas:
 -------------------------------------------------------------------------------
 1. teszteset
 -------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ Futasido: 0.000
 -------------------------------------------------------------------------------
 Dokumentacio ellenorzese
 -------------------------------------------------------------------------------
-Publikus elemek: HIBA! (Tovabbi informaciok a public.doxygen allomanyban olvashatok)
+Publikus elemek: Helyes (2 pont)
 Privat elemek: HIBA! (Tovabbi informaciok a private.doxygen allomanyban olvashatok)
 -------------------------------------------------------------------------------
-Osszpontszam: 6
+Osszpontszam: 8
