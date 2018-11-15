@@ -1,32 +1,32 @@
 #include <iostream>
 
 using namespace std;
-// === MEGVAL”SÕTAND” ===
+// === MEGVAL√ìS√çTAND√ì ===
 
 /**
- * Az oszt·lysablon neve my_tree.
- * A sablon paramÈterezÈse:
- *   - T: a fapontokban t·rolt adat tÌpusa
- * A sablonpÈld·ny a tree_base oszt·lybÛl sz·rmazik (amely rendelkezik default
- * konstruktorral). A beadott feladatban a tree_base oszt·lyt nem kell (nem
- * szabad) megvalÛsÌtani!
+ * Az oszt√°lysablon neve my_tree.
+ * A sablon param√©terez√©se:
+ *   - T: a fapontokban t√°rolt adat t√≠pusa
+ * A sablonp√©ld√°ny a tree_base oszt√°lyb√≥l sz√°rmazik (amely rendelkezik default
+ * konstruktorral). A beadott feladatban a tree_base oszt√°lyt nem kell (nem
+ * szabad) megval√≥s√≠tani!
  */
 //template<class T>
 //class my_tree : tree_base {
 template<class T>
 class my_tree {
 private:
-    T d;
-    my_tree<T>* p;
-    my_tree<T>* left;
-    my_tree<T>* right;
+    T d; /** Az fa pontj√°ban t√°rolt adat v√°ltoz√≥ja. */
+    my_tree<T>* p; /** A sz√ºl≈ëre mutat√≥ pointer. */
+    my_tree<T>* left; /** A bal gyerekre mutat√≥ pointer. */
+    my_tree<T>* right; /** A jobb gyerekre mutat√≥ pointer. */
 
 public:
     /**
-     * Belsı oszt·ly, amely az inorder bej·r·st biztosÌtÛ iter·tort valÛsÌtja meg.
+     * Bels√µ oszt√°ly, amely az inorder bej√°r√°st biztos√≠t√≥ iter√°tort val√≥s√≠tja meg.
      */
     class iterator;
-    /** A sablonpÈld·ny rendelkezik default konstruktorral. */
+    /** A sablonp√©ld√°ny rendelkezik default konstruktorral. */
     my_tree() {
         this->d = 0;
         this->p = nullptr;
@@ -34,19 +34,19 @@ public:
         this->right = nullptr;
     }
     /**
-     * A sablonpÈld·ny rendelkezik olyan konstruktorral, amely inicializ·lja a
-     * fapontban t·rolt adatot.
+     * A sablonp√©ld√°ny rendelkezik olyan konstruktorral, amely inicializ√°lja a
+     * fapontban t√°rolt adatot.
      */
     my_tree(const T &data) {
-    /**
-     * A sablonpÈld·ny rendelkezik olyan konstruktorral, amely inicializ·lja a
-     * fapontban t·rolt adatot, Ès a bal Ès jobb gyerekÈt.
-     */
         this->d = data;
         this->p = nullptr;
         this->left = nullptr;
         this->right = nullptr;
     }
+    /**
+     * A sablonp√©ld√°ny rendelkezik olyan konstruktorral, amely inicializ√°lja a
+     * fapontban t√°rolt adatot, tov√°bb√° a fapont bal- √©s jobb gyerekeit is meghat√°rozza.
+     */
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right) {
         this->d = data;
         this->p = nullptr;
@@ -55,7 +55,7 @@ public:
         this->right = right;
         this->right->p = this;
     }
-    /** A destruktor felszabadÌtja a teljes rÈszf·t. */
+    /** A destruktor felszabad√≠tja a teljes r√©szf√°t. */
     ~my_tree() {
         if (this->left != nullptr) {
             delete this->left;
@@ -64,12 +64,12 @@ public:
             delete this->right;
         }
     }
-    /** Hozz·fÈrÈs a fapontban t·rolt adathoz. */
+    /** Hozz√°f√©r√©s a fapontban t√°rolt adathoz. */
     const T& data() const {
         return this->d;
     }
 
-    /** A fapont sz¸lıje. */
+    /** A fapont sz√ºl√µje. */
     my_tree<T>* parent() const {
         return this->p;
     }
@@ -81,28 +81,28 @@ public:
     my_tree<T>* rightChild() const {
         return this->right;
     }
-    /** Be·llÌtja a fapont bal gyerekÈt. */
+    /** Be√°ll√≠tja a fapont bal gyerek√©t. */
     void setLeftChild(my_tree<T> *left) {
         this->left = left;
         this->left->p = this;
     }
-    /** Be·llÌtja a fapont jobb gyerekÈt. */
+    /** Be√°ll√≠tja a fapont jobb gyerek√©t. */
     void setRightChild(my_tree<T> *right) {
         this->right = right;
         this->right->p = this;
     }
-    /** Iter·tor tÌpus, amely inorder bej·r·st biztosÌt a f·ban. */
+    /** Iter√°tor t√≠pus, amely inorder bej√°r√°st biztos√≠t a f√°ban. */
     class iterator;
-    /** Iter·tor a fa inorder bej·r·s szerinti elsı elemÈre. */
+    /** Iter√°tor a fa inorder bej√°r√°s szerinti els√µ elem√©re. */
     iterator begin();
-    /** Iter·tor a fa inorder bej·r·s szerinti utolsÛ eleme ut·ni elemre. */
+    /** Iter√°tor a fa inorder bej√°r√°s szerinti utols√≥ eleme ut√°ni elemre. */
     iterator end();
 };
 
-// === MEGVAL”SÕT¡S V…GE ===
+// === MEGVAL√ìS√çT√ÅS V√âGE ===
 
 /**
- * PÈlda a fa adatszerkezet felhaszn·l·s·ra. A beadott feladatban nem szabad
+ * P√©lda a fa adatszerkezet felhaszn√°l√°s√°ra. A beadott feladatban nem szabad
  * szerepelnie.
  */
 int main() {
