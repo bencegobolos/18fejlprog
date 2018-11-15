@@ -66,13 +66,17 @@ public:
         return this->left;
     }
     /** A fapont jobb gyereke. */
-    my_tree<T>* rightChild() const;
+    my_tree<T>* rightChild() const {
+        return this->right;
+    }
     /** Beállítja a fapont bal gyerekét. */
     void setLeftChild(my_tree<T> *left) {
         this->left = left;
     }
     /** Beállítja a fapont jobb gyerekét. */
-    void setRightChild(my_tree<T> *right);
+    void setRightChild(my_tree<T> *right) {
+        this->right = right;
+    }
     /** Iterátor típus, amely inorder bejárást biztosít a fában. */
     class iterator;
     /** Iterátor a fa inorder bejárás szerinti elsõ elemére. */
@@ -93,13 +97,14 @@ int main() {
     cout << "before" << endl;
     my_tree<int> tree = my_tree<int>();
     my_tree<int> tree2 = my_tree<int>(2);
+    my_tree<int> tree3 = my_tree<int>(3);
     cout << "after" << endl;
     cout << "tree has: "<< tree.data() << endl;
     cout << "tree2 has: " << tree2.data() << endl;
 
     tree2.setLeftChild(&tree);
-    my_tree<int> *val = tree2.leftChild();
-    cout << "tree2 left child (tree): " << val->data() << endl;
-
+    tree2.setRightChild(&tree3);
+    cout << "tree2 left child (tree): " << tree2.leftChild()->data() << endl;
+    cout << "tree2 right child (tree3): " << tree2.rightChild()->data() << endl;
     return 0;
 }
