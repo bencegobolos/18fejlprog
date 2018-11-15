@@ -11,10 +11,10 @@
 template<class T>
 class my_tree : tree_base {
 private:
-    T d;
-    my_tree<T>* p;
-    my_tree<T>* left;
-    my_tree<T>* right;
+    T d; /** Az fa pontjában tárolt adat változója. */
+    my_tree<T>* p; /** A szülõre mutató pointer. */
+    my_tree<T>* left; /** A bal gyerekre mutató pointer. */
+    my_tree<T>* right; /** A jobb gyerekre mutató pointer. */
 
 public:
     /**
@@ -33,15 +33,15 @@ public:
      * fapontban tárolt adatot.
      */
     my_tree(const T &data) {
-    /**
-     * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
-     * fapontban tárolt adatot, és a bal és jobb gyerekét.
-     */
         this->d = data;
         this->p = nullptr;
         this->left = nullptr;
         this->right = nullptr;
     }
+    /**
+     * A sablonpéldány rendelkezik olyan konstruktorral, amely inicializálja a
+     * fapontban tárolt adatot, továbbá a fapont bal- és jobb gyerekeit is meghatározza.
+     */
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right) {
         this->d = data;
         this->p = nullptr;
