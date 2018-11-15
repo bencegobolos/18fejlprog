@@ -17,6 +17,7 @@ template<class T>
 class my_tree {
 private:
     T d;
+    my_tree<T>* p;
     my_tree<T>* left;
     my_tree<T>* right;
 
@@ -28,6 +29,7 @@ public:
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
         this->d = 0;
+        this->p = nullptr;
         this->left = nullptr;
         this->right = nullptr;
     }
@@ -41,13 +43,17 @@ public:
      * fapontban tárolt adatot, és a bal és jobb gyerekét.
      */
         this->d = data;
+        this->p = nullptr;
         this->left = nullptr;
         this->right = nullptr;
     }
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right) {
         this->d = data;
+        this->p = nullptr;
         this->left = left;
+        this->left->p = this;
         this->right = right;
+        this->right->p = this;
     }
     /** A destruktor felszabadítja a teljes részfát. */
     ~my_tree() {
@@ -64,7 +70,9 @@ public:
     }
 
     /** A fapont szülõje. */
-    my_tree<T>* parent() const;
+    my_tree<T>* parent() const {
+        return this->p;
+    }
     /** A fapont bal gyereke. */
     my_tree<T>* leftChild() const {
         return this->left;
@@ -76,10 +84,12 @@ public:
     /** Beállítja a fapont bal gyerekét. */
     void setLeftChild(my_tree<T> *left) {
         this->left = left;
+        this->left->p = this;
     }
     /** Beállítja a fapont jobb gyerekét. */
     void setRightChild(my_tree<T> *right) {
         this->right = right;
+        this->right->p = this;
     }
     /** Iterátor típus, amely inorder bejárást biztosít a fában. */
     class iterator;
@@ -110,6 +120,8 @@ int main() {
     tree2.setRightChild(&tree3);
     cout << "tree2 left child (tree): " << tree2.leftChild()->data() << endl;
     cout << "tree2 right child (tree3): " << tree2.rightChild()->data() << endl;
+    cout << "parent of tree (tree2): " << tree.parent()->data() << endl;
+    cout << "parent of tree3 (tree2): " << tree3.parent()->data() << endl;
 
     my_tree<int> t_left = my_tree<int>(0);
     my_tree<int> t_right = my_tree<int>(2);
