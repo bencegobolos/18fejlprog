@@ -26,29 +26,37 @@ private:
     my_tree<T>* right;
 
 public:
-    // iterátor belső osztály, a megfelelő metódusokat meg kell valosítani
+    /** iterátor belső osztály, a megfelelő metódusokat meg kell valosítani */
     class iterator {
     private:
-        my_tree<T> *_p;  // az iterátor által hivatkozott elem.
-        int length; // a fa elemeinek száma.
+        /** az iterátor által hivatkozott elem. */
+        my_tree<T> *_p;
+        /** a fa elemeinek száma. */
+        int length;
+        /** Workaround: fapontokat tartalmazó tömb. */
         my_tree<T> elements[100];
+        /** Aktuális fapontra mutató pointer. */
         my_tree<T> *curr;
-        friend class my_tree<T>;  // my_tree sablon friend definicioja, hogy elérje a privát konstruktort.
+        /** my_tree sablon friend definicioja, hogy elérje a privát konstruktort. */
+        friend class my_tree<T>;
+        /** privát konstruktor, ami a megfelelő elemre állítja az iterátort. */
         iterator(my_tree<T> *p) : _p(get_first(*p)) {
             this->length = 0;
-            cool(*_p);
+            masolo(*_p);
             elements[length] = my_tree<T>(0);
             curr = elements;
-        }  // privát konstruktor, ami a megfelelő elemre állítja az iterátort.
-        void cool(my_tree<T> &n) {
+        }
+        /** Workaround: lemásolja a fa pontjait egy tömbbe, megfelelő sorrendbe rakva. */
+        void masolo(my_tree<T> &n) {
             if (n.left != nullptr) {
-                cool(*n.left);
+                masolo(*n.left);
             }
             elements[length++] = n;
             if (n.right != nullptr) {
-                cool(*n.right);
+                masolo(*n.right);
             }
         }
+        /** Visszaadja a legkisebb értékű fapont címét. */
         my_tree<T>* get_first(my_tree<T> &n) {
             if (n.left != nullptr) {
                 get_first(*n.left);
@@ -58,14 +66,16 @@ public:
             }
         }
     public:
-        iterator() : _p(nullptr) {} // alapértelmezett konstruktor
-        iterator(const iterator &it) : _p(it._p) {}  // copy konstruktor
-        const T& operator*() {return _p->data();}  // dereferencia
-        T* operator->() {return _p;}
-        iterator& operator++() {++curr; return *this;}  // prefix iterátor léptető
-        //iterator operator++(int) {iterator temp(*this); ++_p; return temp;}  // postfix iterátor léptető
-        //bool operator==(const iterator &it) {return _p == it._p;}  // logikai egyenlőség
-        bool operator!=(const iterator &it) {return _p != it._p;}  // logikai különbözőség
+        /** alapértelmezett konstruktor */
+        iterator() : _p(nullptr) {}
+        /** copy konstruktor */
+        iterator(const iterator &it) : _p(it._p) {}
+        /** dereferencia */
+        const T& operator*() {return _p->data();}
+        /** prefix iterátor léptető */
+        iterator& operator++() {++curr; return *this;}
+        /** logikai különbözőség */
+        bool operator!=(const iterator &it) {return _p != it._p;}
     };
 
     /** Iterátor a fa inorder bejárás szerinti elsõ elemére. */
