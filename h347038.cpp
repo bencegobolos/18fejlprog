@@ -31,15 +31,22 @@ public:
     private:
         my_tree<T> *_p;  // az iterátor által hivatkozott elem.
         int length; // a fa elemeinek száma.
+        my_tree<T> elements[100];
+        my_tree<T> *curr;
         friend class my_tree<T>;  // my_tree sablon friend definicioja, hogy elérje a privát konstruktort.
-        iterator(my_tree<T> *p) : _p(get_first(*p)) {this->length = 0; set_length(*_p);}  // privát konstruktor, ami a megfelelő elemre állítja az iterátort.
-        void set_length(my_tree<T> &n) {
+        iterator(my_tree<T> *p) : _p(get_first(*p)) {
+            this->length = 0;
+            cool(*_p);
+            elements[length] = my_tree<T>(0);
+            curr = elements;
+        }  // privát konstruktor, ami a megfelelő elemre állítja az iterátort.
+        void cool(my_tree<T> &n) {
             if (n.left != nullptr) {
-                set_length(*n.left);
+                cool(*n.left);
             }
-            ++length;
+            elements[length++] = n;
             if (n.right != nullptr) {
-                set_length(*n.right);
+                cool(*n.right);
             }
         }
         my_tree<T>* get_first(my_tree<T> &n) {
@@ -55,10 +62,10 @@ public:
         iterator(const iterator &it) : _p(it._p) {}  // copy konstruktor
         const T& operator*() {return _p->data();}  // dereferencia
         T* operator->() {return _p;}
-        iterator& operator++() {++_p; return *this;}  // prefix iterátor léptető
+        iterator& operator++() {++curr; return *this;}  // prefix iterátor léptető
         //iterator operator++(int) {iterator temp(*this); ++_p; return temp;}  // postfix iterátor léptető
         //bool operator==(const iterator &it) {return _p == it._p;}  // logikai egyenlőség
-        //bool operator!=(const iterator &it) {return _p != it._p;}  // logikai különbözőség
+        bool operator!=(const iterator &it) {return _p != it._p;}  // logikai különbözőség
     };
 
     /** Iterátor a fa inorder bejárás szerinti elsõ elemére. */
@@ -191,5 +198,9 @@ int main() {
     auto it = tree2.begin();
     cout << "eee";
     cout << *it;
+
+    for (auto it = tree2.begin(); it != tree2.end(); ++it) {
+        cout << *it;
+    }
     return 0;
 }
