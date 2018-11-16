@@ -148,24 +148,6 @@ public:
         this->right = right;
         this->right->p = this;
     }
-
-    void iter(const my_tree &n) {
-        if (n.left != nullptr) {
-            iter(*n.left);
-        }
-        cout << n.d << endl;
-        if (n.right != nullptr) {
-            iter(*n.right);
-        }
-    }
-
-    my_tree<T>* lowest(my_tree<T> *n) const {
-        if (n->left != nullptr) {
-            lowest(n->left);
-        } else {
-            return n;
-        }
-    }
 };
 
 // === MEGVALÓSÍTÁS VÉGE ===
@@ -196,13 +178,6 @@ int main() {
     my_tree<int> t_right = my_tree<int>(2);
     my_tree<int> t0 = my_tree<int>(1, &t_left, &t_right);
     cout << t0.leftChild()->data() << " <- " << t0.data() << " -> " << t0.rightChild()->data() << endl;
-
-    t0.iter(t0);
-    cout << endl;
-    tree2.iter(tree2);
-    cout << endl;
-    my_tree<int>* a = tree2.lowest(&tree2);
-    cout << a->data();
 
     cout << endl;
     auto it = tree2.begin();
