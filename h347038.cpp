@@ -16,16 +16,56 @@ using namespace std;
 template<class T>
 class my_tree {
 private:
-    T d; /** Az fa pontjában tárolt adat változója. */
-    my_tree<T>* p; /** A szülőre mutató pointer. */
-    my_tree<T>* left; /** A bal gyerekre mutató pointer. */
-    my_tree<T>* right; /** A jobb gyerekre mutató pointer. */
+    /** Az fa pontjában tárolt adat változója. */
+    T d;
+    /** A szülőre mutató pointer. */
+    my_tree<T>* p;
+    /** A bal gyerekre mutató pointer. */
+    my_tree<T>* left;
+    /** A jobb gyerekre mutató pointer. */
+    my_tree<T>* right;
 
 public:
-    /**
-     * Belsõ osztály, amely az inorder bejárást biztosító iterátort valósítja meg.
-     */
-    class iterator;
+    // iterátor belső osztály, a megfelelő metódusokat meg kell valosítani
+    class iterator {
+    private:
+        my_tree<T> *_p;  // az iterátor által hivatkozott elem.
+        int length; // a fa elemeinek száma.
+        friend class my_tree<T>;  // my_tree sablon friend definicioja, hogy elérje a privát konstruktort.
+        iterator(my_tree<T> *p) : _p(get_first(*p)) {this->length = 0; set_length(*_p);}  // privát konstruktor, ami a megfelelő elemre állítja az iterátort.
+        void set_length(my_tree<T> &n) {
+            if (n.left != nullptr) {
+                set_length(*n.left);
+            }
+            ++length;
+            if (n.right != nullptr) {
+                set_length(*n.right);
+            }
+        }
+        my_tree<T>* get_first(my_tree<T> &n) {
+            if (n.left != nullptr) {
+                get_first(*n.left);
+            }
+            else {
+                return &n;
+            }
+        }
+    public:
+        iterator() : _p(nullptr) {} // alapértelmezett konstruktor
+        iterator(const iterator &it) : _p(it._p) {}  // copy konstruktor
+        const T& operator*() {return _p->data();}  // dereferencia
+        T* operator->() {return _p;}
+        iterator& operator++() {++_p; return *this;}  // prefix iterátor léptető
+        //iterator operator++(int) {iterator temp(*this); ++_p; return temp;}  // postfix iterátor léptető
+        //bool operator==(const iterator &it) {return _p == it._p;}  // logikai egyenlőség
+        //bool operator!=(const iterator &it) {return _p != it._p;}  // logikai különbözőség
+    };
+
+    /** Iterátor a fa inorder bejárás szerinti elsõ elemére. */
+    iterator begin() {return iterator(this);}
+    /** Iterátor a fa inorder bejárás szerinti utolsó eleme utáni elemre. */
+    iterator end() {return iterator(nullptr);}
+
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
         this->d = 0;
@@ -91,12 +131,24 @@ public:
         this->right = right;
         this->right->p = this;
     }
-    /** Iterátor típus, amely inorder bejárást biztosít a fában. */
-    class iterator;
-    /** Iterátor a fa inorder bejárás szerinti elsõ elemére. */
-    iterator begin();
-    /** Iterátor a fa inorder bejárás szerinti utolsó eleme utáni elemre. */
-    iterator end();
+
+    void iter(const my_tree &n) {
+        if (n.left != nullptr) {
+            iter(*n.left);
+        }
+        cout << n.d << endl;
+        if (n.right != nullptr) {
+            iter(*n.right);
+        }
+    }
+
+    my_tree<T>* lowest(my_tree<T> *n) const {
+        if (n->left != nullptr) {
+            lowest(n->left);
+        } else {
+            return n;
+        }
+    }
 };
 
 // === MEGVALÓSÍTÁS VÉGE ===
@@ -128,5 +180,16 @@ int main() {
     my_tree<int> t0 = my_tree<int>(1, &t_left, &t_right);
     cout << t0.leftChild()->data() << " <- " << t0.data() << " -> " << t0.rightChild()->data() << endl;
 
+    t0.iter(t0);
+    cout << endl;
+    tree2.iter(tree2);
+    cout << endl;
+    my_tree<int>* a = tree2.lowest(&tree2);
+    cout << a->data();
+
+    cout << endl;
+    auto it = tree2.begin();
+    cout << "eee";
+    cout << *it;
     return 0;
 }
