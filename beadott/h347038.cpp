@@ -11,16 +11,73 @@
 template<class T>
 class my_tree : tree_base {
 private:
-    T d; /** Az fa pontjában tárolt adat változója. */
-    my_tree<T>* p; /** A szülõre mutató pointer. */
-    my_tree<T>* left; /** A bal gyerekre mutató pointer. */
-    my_tree<T>* right; /** A jobb gyerekre mutató pointer. */
+    /** Az fa pontjában tárolt adat változója. */
+    T d;
+    /** A szülõre mutató pointer. */
+    my_tree<T>* p;
+    /** A bal gyerekre mutató pointer. */
+    my_tree<T>* left;
+    /** A jobb gyerekre mutató pointer. */
+    my_tree<T>* right;
 
 public:
-    /**
-     * Belso osztály, amely az inorder bejárást biztosító iterátort valósítja meg.
-     */
-    class iterator;
+    /** iterátor belsõ osztály, a megfelelõ metódusokat meg kell valosítani */
+    class iterator {
+    private:
+        /** az iterátor által hivatkozott elem. */
+        my_tree<T> *_p;
+        /** a fa elemeinek száma. */
+        int length;
+        /** Workaround: fapontokat tartalmazó tömb. */
+        my_tree<T> elements[100];
+        /** Aktuális fapontra mutató pointer. */
+        my_tree<T> *curr;
+        /** my_tree sablon friend definicioja, hogy elérje a privát konstruktort. */
+        friend class my_tree<T>;
+        /** privát konstruktor, ami a megfelelõ elemre állítja az iterátort. */
+        iterator(my_tree<T> *p) : _p(get_first(*p)) {
+            this->length = 0;
+            masolo(*_p);
+            elements[length] = my_tree<T>(0);
+            curr = elements;
+        }
+        /** Workaround: lemásolja a fa pontjait egy tömbbe, megfelelõ sorrendbe rakva. */
+        void masolo(my_tree<T> &n) {
+            if (n.left != nullptr) {
+                masolo(*n.left);
+            }
+            elements[length++] = n;
+            if (n.right != nullptr) {
+                masolo(*n.right);
+            }
+        }
+        /** Visszaadja a legkisebb értékû fapont címét. */
+        my_tree<T>* get_first(my_tree<T> &n) {
+            if (n.left != nullptr) {
+                get_first(*n.left);
+            }
+            else {
+                return &n;
+            }
+        }
+    public:
+        /** alapértelmezett konstruktor */
+        iterator() : _p(nullptr) {}
+        /** copy konstruktor */
+        iterator(const iterator &it) : _p(it._p) {}
+        /** dereferencia */
+        const T& operator*() {return _p->data();}
+        /** prefix iterátor léptetõ */
+        iterator& operator++() {++curr; return *this;}
+        /** logikai különbözõség */
+        bool operator!=(const iterator &it) {return _p != it._p;}
+    };
+
+    /** Iterátor a fa inorder bejárás szerinti elso elemére. */
+    iterator begin() {return iterator(this);}
+    /** Iterátor a fa inorder bejárás szerinti utolsó eleme utáni elemre. */
+    iterator end() {return iterator(nullptr);}
+
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
         this->d = 0;
@@ -86,12 +143,6 @@ public:
         this->right = right;
         this->right->p = this;
     }
-    /** Iterátor típus, amely inorder bejárást biztosít a fában. */
-    class iterator;
-    /** Iterátor a fa inorder bejárás szerinti elso elemére. */
-    iterator begin();
-    /** Iterátor a fa inorder bejárás szerinti utolsó eleme utáni elemre. */
-    iterator end();
 };
 
 // === MEGVALÓSÍTÁS VÉGE ===
