@@ -1,14 +1,14 @@
-3. Probalkozas:
+4. Probalkozas:
 -------------------------------------------------------------------------------
 1. teszteset
 -------------------------------------------------------------------------------
-Forditas: Helyes (1 pont)
-Futas: HIBA! (Fut?si hiba: 11)
-Futasido: 0.000
+Forditas: HIBA! (Tovabbi informaciok a teszt1.compile allomanyban olvashatok)
 -------------------------------------------------------------------------------
 2. teszteset
 -------------------------------------------------------------------------------
-Forditas: HIBA! (Tovabbi informaciok a teszt2.compile allomanyban olvashatok)
+Forditas: Helyes (1 pont)
+Futas: Helyes (2 pont)
+Futasido: 0.000
 -------------------------------------------------------------------------------
 3. teszteset
 -------------------------------------------------------------------------------
@@ -30,9 +30,7 @@ Futasido: 0.000
 -------------------------------------------------------------------------------
 6. teszteset
 -------------------------------------------------------------------------------
-Forditas: Helyes (1 pont)
-Futas: HIBA! (Fut?si hiba: 11)
-Futasido: 0.000
+Forditas: HIBA! (Tovabbi informaciok a teszt6.compile allomanyban olvashatok)
 -------------------------------------------------------------------------------
 7. teszteset
 -------------------------------------------------------------------------------
@@ -40,9 +38,7 @@ Forditas: HIBA! (Tovabbi informaciok a teszt7.compile allomanyban olvashatok)
 -------------------------------------------------------------------------------
 8. teszteset
 -------------------------------------------------------------------------------
-Forditas: Helyes (1 pont)
-Futas: HIBA! (Fut?si hiba: 11)
-Futasido: 0.000
+Forditas: HIBA! (Tovabbi informaciok a teszt8.compile allomanyban olvashatok)
 -------------------------------------------------------------------------------
 Memoriaszivargas teszt
 -------------------------------------------------------------------------------
