@@ -108,10 +108,18 @@ public:
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right) {
         this->d = data;
         this->p = nullptr;
-        this->left = left;
-        this->left->p = this;
-        this->right = right;
-        this->right->p = this;
+        if (left->data() <= this->data()) {
+            this->left = left;
+            this->left->p = this;
+        } else {
+            this->left = nullptr;
+        }
+        if (right->data() >= this->data()) {
+            this->right = right;
+            this->right->p = this;
+        } else {
+            this->right = nullptr;
+        }
     }
     /** A destruktor felszabadítja a teljes részfát. */
     ~my_tree() {
@@ -141,13 +149,17 @@ public:
     }
     /** Beállítja a fapont bal gyerekét. */
     void setLeftChild(my_tree<T> *left) {
-        this->left = left;
-        this->left->p = this;
+        if (left->data() <= this->data()) {
+            this->left = left;
+            this->left->p = this;
+        }
     }
     /** Beállítja a fapont jobb gyerekét. */
     void setRightChild(my_tree<T> *right) {
-        this->right = right;
-        this->right->p = this;
+        if (right->data() >= this->data()) {
+            this->right = right;
+            this->right->p = this;
+        }
     }
 };
 
