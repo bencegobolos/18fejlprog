@@ -72,6 +72,8 @@ public:
         iterator(const iterator &it) : _p(it._p) {}
         /** dereferencia */
         const T& operator*() {return _p->data();}
+        /** pointer jelöléssel adja vissza az aktuális fapontot. */
+        my_tree<T>* operator->() {return curr;}
         /** prefix iterátor léptető */
         iterator& operator++() {++curr; return *this;}
         /** logikai különbözőség */
@@ -85,7 +87,7 @@ public:
 
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
-        this->d = 0;
+        this->d = (T)nullptr;
         this->p = nullptr;
         this->left = nullptr;
         this->right = nullptr;
@@ -122,7 +124,7 @@ public:
         }
     }
     /** Hozzáférés a fapontban tárolt adathoz. */
-    const T& data() const {
+    T& data() {
         return this->d;
     }
 
@@ -181,11 +183,19 @@ int main() {
 
     cout << endl;
     auto it = tree2.begin();
+    auto a = tree3.begin();
+    /*
     cout << "eee";
     cout << *it;
 
     for (auto it = tree2.begin(); it != tree2.end(); ++it) {
         cout << *it;
     }
+    */
+    my_tree<int> newtree = my_tree<int>();
+    newtree.data();
+    cout << newtree.data();
+    newtree.data() = 1000;
+    cout << newtree.data();
     return 0;
 }
