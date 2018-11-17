@@ -87,7 +87,7 @@ public:
 
     /** A sablonpéldány rendelkezik default konstruktorral. */
     my_tree() {
-        this->d = (T)nullptr;
+        this->d = 0;
         this->p = nullptr;
         this->left = nullptr;
         this->right = nullptr;
