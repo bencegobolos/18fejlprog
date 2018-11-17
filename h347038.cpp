@@ -109,10 +109,14 @@ public:
     my_tree(const T &data, my_tree<T> *left, my_tree<T> *right) {
         this->d = data;
         this->p = nullptr;
-        this->left = left;
-        this->left->p = this;
-        this->right = right;
-        this->right->p = this;
+        if (left->data() < this->data()) {
+            this->left = left;
+            this->left->p = this;
+        }
+        if (right->data() > this->data()) {
+            this->right = right;
+            this->right->p = this;
+        }
     }
     /** A destruktor felszabadítja a teljes részfát. */
     ~my_tree() {
@@ -142,13 +146,17 @@ public:
     }
     /** Beállítja a fapont bal gyerekét. */
     void setLeftChild(my_tree<T> *left) {
-        this->left = left;
-        this->left->p = this;
+        if (left->data() < this->data()) {
+            this->left = left;
+            this->left->p = this;
+        }
     }
     /** Beállítja a fapont jobb gyerekét. */
     void setRightChild(my_tree<T> *right) {
-        this->right = right;
-        this->right->p = this;
+        if (right->data() > this->data()) {
+            this->right = right;
+            this->right->p = this;
+        }
     }
 };
 
@@ -177,9 +185,16 @@ int main() {
     cout << "parent of tree3 (tree2): " << tree3.parent()->data() << endl;
 
     my_tree<int> t_left = my_tree<int>(0);
+    my_tree<int> t_phony = my_tree<int>(1);
     my_tree<int> t_right = my_tree<int>(2);
     my_tree<int> t0 = my_tree<int>(1, &t_left, &t_right);
     cout << t0.leftChild()->data() << " <- " << t0.data() << " -> " << t0.rightChild()->data() << endl;
+
+    my_tree<int> l_one = my_tree<int>(1);
+    my_tree<int> l_two = my_tree<int>(1);
+    l_one.setLeftChild(&l_two);
+    cout << l_one.data();
+    if (l_one.leftChild() != nullptr) { cout << l_one.leftChild()->data(); } else {cout << "h"; }
 
     cout << endl;
     auto it = tree2.begin();
