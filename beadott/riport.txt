@@ -1,4 +1,4 @@
-6. Probalkozas:
+7. Probalkozas:
 -------------------------------------------------------------------------------
 1. teszteset
 -------------------------------------------------------------------------------
@@ -15,19 +15,19 @@ Futasido: 0.000
 3. teszteset
 -------------------------------------------------------------------------------
 Forditas: Helyes (1 pont)
-Futas: HIBA! (Fut?si hiba: 11)
+Futas: Helyes (2 pont)
 Futasido: 0.000
 -------------------------------------------------------------------------------
 4. teszteset
 -------------------------------------------------------------------------------
 Forditas: Helyes (1 pont)
-Futas: HIBA! (Fut?si hiba: 11)
+Futas: HIBA! (Nem feladatkiiras szerinti mukodes)
 Futasido: 0.000
 -------------------------------------------------------------------------------
 5. teszteset
 -------------------------------------------------------------------------------
 Forditas: Helyes (1 pont)
-Futas: HIBA! (Fut?si hiba: 11)
+Futas: HIBA! (Nem feladatkiiras szerinti mukodes)
 Futasido: 0.000
 -------------------------------------------------------------------------------
 6. teszteset
@@ -56,4 +56,4 @@ Dokumentacio ellenorzese
 Publikus elemek: Helyes (2 pont)
 Privat elemek: Helyes (1 pont)
 -------------------------------------------------------------------------------
-Osszpontszam: 12
+Osszpontszam: 14
